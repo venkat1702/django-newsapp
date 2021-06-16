@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link id="mystylesheet" type="text/css" rel="stylesheet" href="{% static 'css/dark.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Document</title>
+</head>
+<body>
+    <h1>NEWS APP</h1><button onclick="swapStyles('light.css')" class="btn" >☀</button><button onclick="swapStyles('dark.css')" class="btn">☾</button>
+    {% for x in api.articles%}
+    <div id="container">	
+        <div class="news">       
+            <h1>{{x.title}}</h1>        
+            <p class="information">{{x.description  | truncatechars:200}}<a target="_blank" href="{{x.url}}">Learn More</a></p>    
+        </div>     
+        <div class="product-image">       
+            <img src="{{x.urlToImage}}" alt="image">        
+        </div> 
+    </div>
+    {% endfor %}
+    <script type="text/javascript">
+
+		function getCookie(name) {
+		    var cookieValue = null;
+		    if (document.cookie && document.cookie !== '') {
+		        var cookies = document.cookie.split(';');
+		        for (var i = 0; i < cookies.length; i++) {
+		            var cookie = cookies[i].trim();
+		            // Does this cookie string begin with the name we want?
+		            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+		                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+		                break;
+		            }
+		        }
+		    }
+		    return cookieValue;
+		}
+		var csrftoken = getCookie('csrftoken');
+
+
+
+		var cssFile = "{% static 'css' %}"
+		
+
+		function swapStyles(sheet){
+			document.getElementById('mystylesheet').href = cssFile + '/' + sheet
+			localStorage.setItem('theme', sheet)
+
+			updateTheme(sheet)
+		}
+
+
+		function loadSettings(){
+			//Call data and set local storage
+
+			var url = "{% url 'user_settings' %}"
+			fetch(url, {
+				method:'GET',
+				headers:{
+					'Content-type':'application/json'
+				}
+			})
+			.then((response) => response.json())
+			.then(function(data){
+
+				console.log('Data:', data)
+
+				var theme = data.value;
+				
+				if (theme == 'light.css' || null){
+					swapStyles('light.css')
+				}else if(theme == 'dark.css'){
+					swapStyles('dark.css')
+				}
+				
+
+			})
+
+		}
+		
+		loadSettings()
+
+
+		function updateTheme(theme){
+			var url = "{% url 'update_theme' %}"
+			fetch(url, {
+				method:'POST',
+				headers:{
+					'Content-type':'application/json',
+					'X-CSRFToken':csrftoken,
+				},
+				body:JSON.stringify({'theme':theme})
+			})
+		}
+	</script>
+</body>
+
+
+</html>
