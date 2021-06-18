@@ -7,10 +7,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link id="mystylesheet" type="text/css" rel="stylesheet" href="{% static 'css/dark.css' %}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>Document</title>
+    <title>NEWS APP</title>
 </head>
 <body>
-    <h1>NEWS APP</h1><button onclick="swapStyles('light.css')" class="btn" >☀</button><button onclick="swapStyles('dark.css')" class="btn">☾</button>
+    <h1> 📰 NEWS APP</h1><button onclick="swapStyles('light.css')" class="btn" >🌞</button><button onclick="swapStyles('dark.css')" class="btn">🌑</button>
     {% for x in api.articles%}
     <div id="container">	
         <div class="news">       
