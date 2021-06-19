@@ -6,8 +6,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link id="mystylesheet" type="text/css" rel="stylesheet" href="{% static 'css/light.css' %}">
+    <script>
+        var currenttheme = localStorage.getItem("theme"); 
+        if(currenttheme==null){
+            currenttheme="light.css"
+        }
+        var cssFile = "{% static 'css' %}";
+        document.getElementById('mystylesheet').href =cssFile + '/'+ currenttheme;
+        console.log(x);
+    </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>NEWS APP</title>
+    <title>📰 NEWS</title>
 </head>
 <body>
     <h1> 📰 NEWS APP</h1><button onclick="swapStyles('light.css')" class="btn" >🌞</button><button onclick="swapStyles('dark.css')" class="btn">🌑</button>
