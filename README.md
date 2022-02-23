@@ -1,8 +1,6 @@
 # Django news app✌🏻
-## demo(light mode)🔥
-![light mode](./demo/light.png)
-## demo(dark mode)🔥
-![dark mode](./demo/dark.png)
+## demo🔥
+![dark mode](./djangonews.gif)
 
 ## Run in your local machine 💻
 ```
